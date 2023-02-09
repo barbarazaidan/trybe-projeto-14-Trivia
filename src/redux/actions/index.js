@@ -10,31 +10,31 @@ export const addEmail = (email) => ({
   payload: email,
 });
 
-export const REQUEST_STARTED = 'REQUEST_STARTED';
-export const requestStarted = () => ({
-  type: REQUEST_STARTED,
-});
+// export const REQUEST_STARTED = 'REQUEST_STARTED';
+// export const requestStarted = () => ({
+//   type: REQUEST_STARTED,
+// });
 
-export const REQUEST_SUCCESSFUL = 'REQUEST_SUCCESSFUL';
-export const requestSuccessful = (payload) => ({
-  type: REQUEST_SUCCESSFUL,
-  payload,
-});
+// export const REQUEST_SUCCESSFUL = 'REQUEST_SUCCESSFUL';
+// export const requestSuccessful = (payload) => ({
+//   type: REQUEST_SUCCESSFUL,
+//   payload,
+// });
 
-export const REQUEST_FAILED = 'REQUEST_FAILED';
-export const requestFailed = (error) => ({
-  type: REQUEST_FAILED,
-  payload: error,
-});
+// export const REQUEST_FAILED = 'REQUEST_FAILED';
+// export const requestFailed = (error) => ({
+//   type: REQUEST_FAILED,
+//   payload: error,
+// });
 
-export function thunkToken() {
-  return async (dispatch) => {
-    dispatch(requestStarted());
-    try {
-      const response = await getToken();
-      dispatch(requestSuccessful(response));
-    } catch (error) {
-      dispatch(requestFailed(error));
-    }
-  };
-}
+// export function thunkToken() {
+//   return async (dispatch) => {
+//     dispatch(requestStarted());
+//     try {
+//       const response = await getToken();
+//       dispatch(requestSuccessful(response));
+//     } catch (error) {
+//       dispatch(requestFailed(error));
+//     }
+//   };
+// }

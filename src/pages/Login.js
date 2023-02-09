@@ -1,7 +1,7 @@
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
-import { thunkToken } from '../redux/actions';
+import { getToken } from '../services/fetchToken';
 
 class Login extends Component {
   state = {
@@ -28,9 +28,9 @@ class Login extends Component {
     }
   };
 
-  startGame = () => {
-    const { history, dispatch } = this.props;
-    dispatch(thunkToken(this.state));
+  startGame = async () => {
+    const { history } = this.props;
+    await getToken();
     history.push('/game');
   };
 
@@ -87,14 +87,9 @@ class Login extends Component {
 }
 
 Login.propTypes = {
-  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
 };
 
-const mapStateToProps = (state) => ({
-  token: state.payload,
-});
-
-export default connect(mapStateToProps)(Login);
+export default connect()(Login);
