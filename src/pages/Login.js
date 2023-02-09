@@ -1,8 +1,7 @@
 import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { thunkToken } from '../redux/actions';
-
+import { getToken } from '../services/fetchToken'
 class Login extends Component {
   state = {
     name: '',
@@ -28,9 +27,11 @@ class Login extends Component {
     }
   };
 
-  startGame = () => {
-    const { history, dispatch } = this.props;
-    dispatch(thunkToken(this.state));
+  startGame = async () => {
+    // const { history, dispatch } = this.props;
+    const { history } = this.props;
+    // dispatch(thunkToken(this.state));
+    await getToken();
     history.push('/game');
   };
 
