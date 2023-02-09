@@ -1,6 +1,7 @@
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { thunkToken } from '../redux/actions';
 
 class Login extends Component {
   state = {
@@ -25,6 +26,12 @@ class Login extends Component {
     } else {
       this.setState({ isDisabled: true });
     }
+  };
+
+  startGame = () => {
+    const { history, dispatch } = this.props;
+    dispatch(thunkToken(this.state));
+    history.push('/game');
   };
 
   render() {
@@ -60,7 +67,7 @@ class Login extends Component {
             data-testid="btn-play"
             type="button"
             disabled={ isDisabled }
-            // onClick={  }
+            onClick={ this.startGame }
           >
             Play
           </button>
@@ -71,4 +78,15 @@ class Login extends Component {
   }
 }
 
-export default connect()(Login);
+Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
+
+const mapStateToProps = (state) => ({
+  token: state.payload,
+});
+
+export default connect(mapStateToProps)(Login);
