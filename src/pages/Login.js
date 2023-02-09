@@ -1,6 +1,6 @@
-import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 import { thunkToken } from '../redux/actions';
 
 class Login extends Component {
@@ -36,6 +36,7 @@ class Login extends Component {
 
   render() {
     const { name, email, isDisabled } = this.state;
+    const { history } = this.props;
 
     return (
       <div>
@@ -70,6 +71,13 @@ class Login extends Component {
             onClick={ this.startGame }
           >
             Play
+          </button>
+          <button
+            data-testid="btn-settings"
+            type="button"
+            onClick={ () => history.push('/settings') }
+          >
+            Settings
           </button>
 
         </form>
