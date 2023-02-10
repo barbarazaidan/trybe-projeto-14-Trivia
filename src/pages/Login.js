@@ -2,11 +2,13 @@ import PropTypes from 'prop-types';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { getToken } from '../services/fetchToken';
+import { addInfo } from '../redux/actions/index';
 
 class Login extends Component {
   state = {
     name: '',
     email: '',
+    score: 0,
     isDisabled: true,
   };
 
@@ -29,8 +31,10 @@ class Login extends Component {
   };
 
   startGame = async () => {
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
+    const { email, name, score } = this.state;
     await getToken();
+    dispatch(addInfo(email, name, score));
     history.push('/game');
   };
 
@@ -87,6 +91,7 @@ class Login extends Component {
 }
 
 Login.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,

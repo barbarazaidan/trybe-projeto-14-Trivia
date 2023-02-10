@@ -1,13 +1,27 @@
-export const ADD_NAME = 'ADD_NAME';
-export const addName = (name) => ({
-  type: 'ADD_NAME',
-  payload: name,
+// export const ADD_NAME = 'ADD_NAME';
+// export const addName = (name) => ({
+//   type: 'ADD_NAME',
+//   payload: name,
+// });
+
+// export const ADD_EMAIL = 'ADD_EMAIL';
+// export const addEmail = (email) => ({
+//   type: 'ADD_EMAIL',
+//   payload: email,
+// });
+
+export const GRAVATAR_INFO = 'GRAVATAR_INFO';
+export const addInfo = (email, name, score) => ({
+  type: 'GRAVATAR_INFO',
+  // payload:
+  email,
+  name,
+  score,
 });
 
-export const ADD_EMAIL = 'ADD_EMAIL';
-export const addEmail = (email) => ({
-  type: 'ADD_EMAIL',
-  payload: email,
+export const SCORE = 'SCORE';
+export const score = () => ({
+  type: 'SCORE',
 });
 
 // export const REQUEST_STARTED = 'REQUEST_STARTED';
