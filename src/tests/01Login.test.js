@@ -77,11 +77,12 @@ describe('Testar a tela de Login:', () => {
     userEvent.type(inputEmail, 'bill@gmail.com');
     userEvent.click(buttonPlay)   
     
-    // await waitFor(() => expect(history.location.pathname).toBe('/game'), { timeout: 6000 });
+    await waitFor(() => expect(history.location.pathname).toBe('/game'), { timeout: 3000 });
 
-    await waitForElementToBeRemoved(() =>  screen.getByRole('button', { name: /settings/i }), { timeout: 6000 })
-    const gameTitle = await screen.findByText(/game/i)    
-    expect(history.location.pathname).toBe('/game');
+    // await waitForElementToBeRemoved(() =>  screen.getByRole('button', { name: /settings/i }), { timeout: 6000 })
+    // const gameTitle = await screen.findByText(/game/i)    
+    // expect(history.location.pathname).toBe('/game');
+    // Esse passa tbm! ^ 
   })
   it('Test06- Testa se o botão Settings redireciona o usuário para a página Settings após o click', () => {
     const { history } = renderWithRouterAndRedux(<App />);
