@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import Answers from '../components/Answers';
 import Header from '../components/Header';
@@ -33,5 +34,11 @@ class Game extends Component {
     );
   }
 }
+
+Game.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
+};
 
 export default connect()(Game);

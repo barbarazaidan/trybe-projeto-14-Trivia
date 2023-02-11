@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import Header from './Header';
-import { KEY, getTriviaQuestions } from '../services/fetchToken';
+import PropTypes from 'prop-types';
+// import { connect } from 'react-redux';
 
 class Answers extends Component {
   state = {
@@ -21,9 +20,12 @@ class Answers extends Component {
 
   render() {
     const { questionResults } = this.props;
-    const { incorrect_answers, correct_answer } = questionResults[0];
-    console.log(incorrect_answers);
-    const allAnswers = [...incorrect_answers, correct_answer];
+    const {
+      incorrect_answers: incorrectAnswers, correct_answer: correctAnswers,
+    } = questionResults[0];
+
+    console.log(incorrectAnswers);
+    const allAnswers = [...incorrectAnswers, correctAnswers];
 
     console.log(allAnswers);
     const { contador } = this.state;
@@ -47,6 +49,10 @@ class Answers extends Component {
     );
   }
 }
+
+Answers.propTypes = {
+  questionResults: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+};
 
 export default Answers;
 
