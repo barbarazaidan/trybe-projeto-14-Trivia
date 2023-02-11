@@ -7,10 +7,12 @@ class Answers extends Component {
     contador: 0,
     // shuffled: [],
     // currentQuestionResults: {},
+    // color: '',
+    isClicked: false,
   };
 
   nextQuestion = () => {
-    this.setState(({ contador }) => ({ contador: contador + 1 }));
+    this.setState(({ contador }) => ({ contador: contador + 1, isClicked: false }));
   };
 
   shuffleAnswers = (currentAnswersOptions) => {
@@ -32,6 +34,16 @@ class Answers extends Component {
   //   }
   // };
 
+  validateColor = (answer, correctAnswerAPI) => {
+    if (answer === correctAnswerAPI) {
+      return 'btnGreen';
+    } return 'btnRed';
+  };
+
+  isClickedBtn = () => {
+    this.setState({ isClicked: true });
+  };
+
   answersOptions = (currentQuestionResults) => {
     console.log('currentQuestionResults', currentQuestionResults);
     const {
@@ -43,6 +55,8 @@ class Answers extends Component {
 
     const shuffledAnswers = this.shuffleAnswers(currentAnswersOptions);
     console.log(shuffledAnswers);
+
+    const { isClicked } = this.state;
 
     // this.setState({ shuffled: shuffledAnswers, currentQuestionResults });
 
@@ -56,7 +70,9 @@ class Answers extends Component {
               answer === correctAnswerAPI ? 'correct-answer' : `wrong-answer-${index}`
             }
             // className={ isOnClick && answer === correctAnswerAPI ? 'bntGreen' : 'bntRed' }
-            onClick={ this.validateColor }
+            className={ isClicked ? this.validateColor(answer, correctAnswerAPI) : '' }
+            // onClick={ () => this.validateColor(answer, correctAnswerAPI) }
+            onClick={ this.isClickedBtn }
           >
             { answer }
           </button>

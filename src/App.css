@@ -19,6 +19,7 @@ body {
 
 .btnRed {
   border: 3px solid red;
+  border-width: 3px;
 }
 
 .red-border {
