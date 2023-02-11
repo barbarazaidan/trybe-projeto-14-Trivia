@@ -7,7 +7,7 @@ class Answers extends Component {
     contador: 0,
     // shuffled: [],
     // currentQuestionResults: {},
-    color: '',
+    // color: '',
     isClicked: false,
   };
 
