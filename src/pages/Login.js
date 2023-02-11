@@ -35,7 +35,7 @@ class Login extends Component {
     const { email, name, score } = this.state;
     await getToken();
     dispatch(addInfo(email, name, score));
-    history.push('/game');
+    history.push('/game'); // demora um pouco porque espera a requisição do getToken(); importante na hora do teste
   };
 
   render() {
