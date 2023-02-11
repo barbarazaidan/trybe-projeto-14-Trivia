@@ -15,19 +15,21 @@ body {
 
 .btnGreen {
   border: 3px solid rgb(6, 240, 15);
+  /* border-width: 3px; */
 }
 
 .btnRed {
-  border: 3px solid red;
+  border: solid red;
+  border-width: 3px;
 }
 
-.red-border {
+/* .red-border {
   border: 1px solid red;
 }
 
 .green-border {
   border: 1px solid green;
-}
+} */
 
 @media ( prefers-reduced-motion : no-preference ) {
 
