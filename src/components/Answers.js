@@ -51,7 +51,12 @@ class Answers extends Component {
 }
 
 Answers.propTypes = {
-  questionResults: PropTypes.arrayOf(PropTypes.shape({})).isRequired,
+  questionResults: PropTypes.arrayOf(PropTypes.shape({
+    category: PropTypes.string,
+    question: PropTypes.string,
+    incorrect_answers: PropTypes.arrayOf(PropTypes.string),
+    correct_answer: PropTypes.arrayOf(PropTypes.string),
+  })).isRequired,
 };
 
 export default Answers;
