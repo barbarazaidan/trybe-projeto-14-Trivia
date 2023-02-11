@@ -13,6 +13,14 @@ body {
   pointer-events: none;
 }
 
+.btnGreen {
+  border: 3px solid rgb(6, 240, 15) ;
+}
+
+.btnRed {
+  border: 3px solid red;
+}
+
 .red-border {
   border: 1px solid red;
 }
