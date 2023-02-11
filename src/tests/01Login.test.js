@@ -79,8 +79,7 @@ describe('Testar a tela de Login:', () => {
     
     await waitFor(() => expect(history.location.pathname).toBe('/game'), { timeout: 3000 });
 
-    // await waitForElementToBeRemoved(() =>  screen.getByRole('button', { name: /settings/i }), { timeout: 6000 })
-    // const gameTitle = await screen.findByText(/game/i)    
+    // await waitForElementToBeRemoved(() =>  screen.getByRole('button', { name: /settings/i }), { timeout: 6000 })  
     // expect(history.location.pathname).toBe('/game');
     // Esse passa tbm! ^ 
   })

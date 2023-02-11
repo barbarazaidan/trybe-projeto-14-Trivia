@@ -2,8 +2,9 @@ import { GRAVATAR_INFO, SCORE } from '../actions/index';
 
 const INITIAL_STATE = {
   name: '',
-  email: '',
+  gravatarEmail: '',
   score: 0,
+  assertions: 0,
 };
 
 const player = (state = INITIAL_STATE, action) => {
@@ -21,7 +22,7 @@ const player = (state = INITIAL_STATE, action) => {
   case GRAVATAR_INFO:
     return {
       name: action.name,
-      email: action.email,
+      gravatarEmail: action.email,
       score: action.score,
     };
 

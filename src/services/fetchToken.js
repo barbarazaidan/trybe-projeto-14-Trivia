@@ -13,3 +13,16 @@ export const KEY = 'token';
 export const getToken = () => fetch(TOKEN_URL).then((response) => response.json())
   .then((json) => localStorage.setItem(KEY, json.token))
   .catch(() => { console.log('Erro'); });
+
+  
+  export const getTriviaQuestions = async () => {
+    const token = localStorage.getItem(KEY);
+    // console.log(token);
+    const URL = `https://opentdb.com/api.php?amount=5&token=${token}`;
+    // if (token) { 
+    return fetch(URL)
+      .then((response) => response.json())
+      .then((data) => data)
+    // }
+
+};
