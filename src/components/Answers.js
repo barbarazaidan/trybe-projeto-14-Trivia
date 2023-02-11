@@ -5,39 +5,94 @@ import PropTypes from 'prop-types';
 class Answers extends Component {
   state = {
     contador: 0,
+    // shuffled: [],
+    // currentQuestionResults: {},
   };
-
-  // funcaoTeste = () => {
-  //   for (i = 0; i <= 5; i += 1) {
-  //     questionResults.filter((question) => ({ question === questionResults[i] }));
-  //   }
-
-  // };
 
   nextQuestion = () => {
     this.setState(({ contador }) => ({ contador: contador + 1 }));
   };
 
+  shuffleAnswers = (currentAnswersOptions) => {
+    const limitToSort = 0.5;
+    const shuffleAnswers = currentAnswersOptions.sort(() => Math.random() - limitToSort);
+    // console.log(shuffleAnswers);
+    return shuffleAnswers;
+  };
+
+  // validateColor = (answer, correctAnswerAPI) => {
+  //   this.setState({ isOnClick: true });
+  // };
+
+  // validateColor = (answer, correctAnswerAPI) => {
+  //   if (answer === correctAnswerAPI) {
+  //     this.setState({ color: 'btnGreen' });
+  //   } else {
+  //     this.setState({ color: 'btnRed' });
+  //   }
+  // };
+
+  answersOptions = (currentQuestionResults) => {
+    console.log('currentQuestionResults', currentQuestionResults);
+    const {
+      incorrect_answers: incorrectAnswersAPI, correct_answer: correctAnswerAPI,
+    } = currentQuestionResults;
+
+    const currentAnswersOptions = [...incorrectAnswersAPI, correctAnswerAPI];
+    console.log('currentAnswersOptions', currentAnswersOptions);
+
+    const shuffledAnswers = this.shuffleAnswers(currentAnswersOptions);
+    console.log(shuffledAnswers);
+
+    // this.setState({ shuffled: shuffledAnswers, currentQuestionResults });
+
+    return (
+      <div data-testid="answer-options">
+        { shuffledAnswers.map((answer, index) => (
+          <button
+            type="button"
+            key={ index }
+            data-testid={
+              answer === correctAnswerAPI ? 'correct-answer' : `wrong-answer-${index}`
+            }
+            // className={ isOnClick && answer === correctAnswerAPI ? 'bntGreen' : 'bntRed' }
+            onClick={ this.validateColor }
+          >
+            { answer }
+          </button>
+        ))}
+      </div>
+    );
+  };
+
   render() {
     const { questionResults } = this.props;
-    const {
-      incorrect_answers: incorrectAnswers, correct_answer: correctAnswers,
-    } = questionResults[0];
-
-    console.log(incorrectAnswers);
-    const allAnswers = [...incorrectAnswers, correctAnswers];
-
-    console.log(allAnswers);
     const { contador } = this.state;
-    console.log(questionResults[0]);
+    // const { contador, shuffled, currentQuestionResults } = this.state;
+    // const {
+    //   incorrect_answers: incorrectAnswersAPI, correct_answer: correctAnswerAPI,
+    // } = currentQuestionResults;
+
     return (
       <div>
         <p data-testid="question-category">{ questionResults[contador].category }</p>
         <p data-testid="question-text">{ questionResults[contador].question }</p>
-        <div data-testid="answer-options">
-          { allAnswers.sort((answer, index) => (
-            <button key={ index } type="button">{ answer }</button>)) }
-        </div>
+        { this.answersOptions(questionResults[contador]) }
+        {/* <div data-testid="answer-options">
+          { shuffled.map((answer, index) => (
+            <button
+              type="button"
+              key={ index }
+              data-testid={
+                answer === correctAnswerAPI ? 'correct-answer' : `wrong-answer-${index}`
+              }
+              // className={ isOnClick && answer === correctAnswerAPI ? 'bntGreen' : 'bntRed' }
+              onClick={ this.validateColor }
+            >
+              { answer }
+            </button>
+          ))}
+        </div> */}
         <button
           type="button"
           data-testid="btn-next"
@@ -61,21 +116,9 @@ Answers.propTypes = {
 
 export default Answers;
 
-// category
-// :
-// "History"
-// correct_answer
-// :
-// "Tudor"
 // difficulty
 // :
 // "easy"
-// incorrect_answers
-// :
-// (3) ['York', 'Stuart', 'Lancaster']
-// question
-// :
-// "King Henry VIII was the second monarch of which European royal house?"
 // type
 // :
 // "multiple"
