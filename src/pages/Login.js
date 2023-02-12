@@ -22,7 +22,7 @@ class Login extends Component {
   validateBtnLogin = () => {
     const { name, email } = this.state;
     const validName = /^.{3,}$/;
-    const validEmail = /^[a-zA-Z0-9]+@[a-zA-Z0-9]+\.[A-Za-z]+$/;
+    const validEmail = /\S+@+\w+\.+[c]+[o]+[m]/;
     if (validEmail.test(email) && validName.test(name)) {
       this.setState({ isDisabled: false });
     } else {
