@@ -31,7 +31,7 @@ class Answers extends Component {
     const maxTime = 30000;
     const tempInterval = 1000;
 
-    this.generateAnswers();
+    this.generateAnswers(); // função que atualiza o estado da cetgoria, question e das respostas
 
     setTimeout(this.timer, maxTime);
     const intervalIdi = setInterval(this.timerUser, tempInterval);
