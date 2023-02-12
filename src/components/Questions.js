@@ -16,6 +16,7 @@ class Questions extends Component {
     intervalId: 0,
     difficulty: '',
     score: 0,
+    isBtnShow: false,
   };
 
   // tempUser = () => {
@@ -52,6 +53,7 @@ class Questions extends Component {
       this.setState({
         isButtonDisabled: false,
         temporizador: 30,
+        isBtnShow: false,
       });
       setTimeout(this.timer, maxTime);
       const intervalIdi = setInterval(this.timerUser, tempInterval);
@@ -147,7 +149,7 @@ class Questions extends Component {
         isButtonDisabled: true,
       });
     }
-    this.setState({ isClicked: true });
+    this.setState({ isClicked: true, isBtnShow: true });
   };
 
   render() {
@@ -159,6 +161,7 @@ class Questions extends Component {
       isButtonDisabled,
       shuffledAnswers,
       correctAnswer,
+      isBtnShow,
     } = this.state;
 
     return (
@@ -182,13 +185,15 @@ class Questions extends Component {
             </button>
           ))}
         </div>
-        <button
-          type="button"
-          data-testid="btn-next"
-          onClick={ this.nextQuestion }
-        >
-          Next
-        </button>
+        { isBtnShow && (
+          <button
+            type="button"
+            data-testid="btn-next"
+            onClick={ this.nextQuestion }
+          >
+            Next
+          </button>
+        )}
       </div>
     );
   }
@@ -206,10 +211,3 @@ Questions.propTypes = {
 };
 
 export default connect()(Questions);
-
-// difficulty
-// :
-// "easy"
-// type
-// :
-// "multiple"
