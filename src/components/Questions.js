@@ -195,8 +195,10 @@ class Questions extends Component {
 }
 
 Questions.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   questionResults: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string,
+    difficulty: PropTypes.string,
     question: PropTypes.string,
     incorrect_answers: PropTypes.arrayOf(PropTypes.string),
     correct_answer: PropTypes.arrayOf(PropTypes.string),
