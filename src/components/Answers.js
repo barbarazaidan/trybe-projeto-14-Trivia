@@ -5,10 +5,61 @@ import PropTypes from 'prop-types';
 class Answers extends Component {
   state = {
     contador: 0,
+    temporizador: 30,
     // shuffled: [],
     // currentQuestionResults: {},
     // color: '',
     isClicked: false,
+    isButtonDisabled: false,
+    intervalId: 0,
+  };
+
+  // tempUser = () => {
+  //   const maxTime = 30;
+  //   return maxTime;
+  // };
+
+  // temporizador = () => {
+  //   console.log('Tai?');
+  //   const tempUser = this.tempUser();
+  //   return tempUser;
+  //   //   setInterval(tempUser(), 1000);
+  // };
+
+  componentDidMount() {
+    const maxTime = 30000;
+    const tempInterval = 1000;
+
+    setTimeout(this.timer, maxTime);
+    const intervalIdi = setInterval(this.timerUser, tempInterval);
+    this.setState({ intervalId: intervalIdi });
+  }
+
+  componentDidUpdate(prevProp, prevState) {
+    const maxTime = 30000;
+    const tempInterval = 1000;
+
+    console.log('Prevstate:', prevState);
+    const { contador } = this.state;
+    if (contador > prevState.contador) {
+      this.setState({
+        isButtonDisabled: false,
+        temporizador: 30,
+      });
+      setTimeout(this.timer, maxTime);
+      const intervalIdi = setInterval(this.timerUser, tempInterval);
+      this.setState({ intervalId: intervalIdi });
+    }
+  }
+
+  timerUser = () => {
+    const { temporizador, intervalId } = this.state;
+    const newTemp = temporizador - 1;
+    if (newTemp >= 0) {
+      this.setState({ temporizador: newTemp });
+    } else {
+      clearInterval(intervalId);
+    }
   };
 
   nextQuestion = () => {
@@ -44,6 +95,13 @@ class Answers extends Component {
     this.setState({ isClicked: true });
   };
 
+  timer = () => {
+    this.setState({
+      isButtonDisabled: true,
+    });
+    console.log('oi');
+  };
+
   answersOptions = (currentQuestionResults) => {
     console.log('currentQuestionResults', currentQuestionResults);
     const {
@@ -56,7 +114,7 @@ class Answers extends Component {
     const shuffledAnswers = this.shuffleAnswers(currentAnswersOptions);
     console.log(shuffledAnswers);
 
-    const { isClicked } = this.state;
+    const { isClicked, isButtonDisabled } = this.state;
 
     // this.setState({ shuffled: shuffledAnswers, currentQuestionResults });
 
@@ -73,17 +131,20 @@ class Answers extends Component {
             className={ isClicked ? this.validateColor(answer, correctAnswerAPI) : '' }
             // onClick={ () => this.validateColor(answer, correctAnswerAPI) }
             onClick={ this.isClickedBtn }
+            disabled={ isButtonDisabled }
+            // disabled={ setTimeout(this.timer, 5000) }
           >
             { answer }
           </button>
         ))}
+        {/* { setTimeout(this.timer, 5000) } */}
       </div>
     );
   };
 
   render() {
     const { questionResults } = this.props;
-    const { contador } = this.state;
+    const { contador, temporizador } = this.state;
     // const { contador, shuffled, currentQuestionResults } = this.state;
     // const {
     //   incorrect_answers: incorrectAnswersAPI, correct_answer: correctAnswerAPI,
@@ -91,6 +152,7 @@ class Answers extends Component {
 
     return (
       <div>
+        <p id="temporizador">{ temporizador }</p>
         <p data-testid="question-category">{ questionResults[contador].category }</p>
         <p data-testid="question-text">{ questionResults[contador].question }</p>
         { this.answersOptions(questionResults[contador]) }
