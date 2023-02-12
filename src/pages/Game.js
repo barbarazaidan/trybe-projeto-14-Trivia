@@ -25,12 +25,13 @@ class Game extends Component {
 
   render() {
     const { questionResults } = this.state;
+    const { history } = this.props;
     // console.log(questionResults);
     return (
       <div>
         <Header />
         { questionResults.length > 0
-        && <Questions questionResults={ questionResults } /> }
+        && <Questions history={ history } questionResults={ questionResults } /> }
       </div>
     );
   }

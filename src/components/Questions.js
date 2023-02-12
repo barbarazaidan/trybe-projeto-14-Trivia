@@ -48,7 +48,8 @@ class Questions extends Component {
 
     // console.log('Prevstate:', prevState);
     const { contador } = this.state;
-    if (contador > prevState.contador) {
+    const maxLoop = 5;
+    if (contador > prevState.contador && contador < maxLoop) {
       this.generateAnswers();
       this.setState({
         isButtonDisabled: false,
@@ -96,9 +97,9 @@ class Questions extends Component {
 
   timer = () => {
     this.setState({
-      isButtonDisabled: true,
+      isButtonDisabled: true, isBtnShow: true,
     });
-    console.log('oi');
+    console.log('oi do setTimeout');
   };
 
   timerUser = () => {
@@ -112,7 +113,18 @@ class Questions extends Component {
   };
 
   nextQuestion = () => {
-    this.setState(({ contador }) => ({ contador: contador + 1, isClicked: false }));
+    const maxQuestions = 4;
+    const { history } = this.props;
+    // console.log(history);
+
+    this.setState((prevState) => (
+      { contador: prevState.contador + 1, isClicked: false }
+    ), () => {
+      const { contador } = this.state;
+      if (contador > maxQuestions) {
+        history.push('/feedback');
+      }
+    });
   };
 
   validateColor = (answer, correctAnswer) => {
@@ -201,12 +213,15 @@ class Questions extends Component {
 
 Questions.propTypes = {
   dispatch: PropTypes.func.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
   questionResults: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string,
     difficulty: PropTypes.string,
     question: PropTypes.string,
     incorrect_answers: PropTypes.arrayOf(PropTypes.string),
-    correct_answer: PropTypes.arrayOf(PropTypes.string),
+    correct_answer: PropTypes.string,
   })).isRequired,
 };
 
