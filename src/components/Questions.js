@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-// import { connect } from 'react-redux';
+import { connect } from 'react-redux';
+import { addScore } from '../redux/actions';
 
-class Answers extends Component {
+class Questions extends Component {
   state = {
     contador: 0,
     temporizador: 30,
@@ -13,6 +14,8 @@ class Answers extends Component {
     isClicked: false,
     isButtonDisabled: false,
     intervalId: 0,
+    difficulty: '',
+    score: 0,
   };
 
   // tempUser = () => {
@@ -64,6 +67,7 @@ class Answers extends Component {
       correct_answer: correctAnswerAPI,
       category,
       question,
+      difficulty,
     } = questionResults[contador];
 
     const answersOptions = [...incorrectAnswersAPI, correctAnswerAPI];
@@ -77,6 +81,7 @@ class Answers extends Component {
       correctAnswer: correctAnswerAPI,
       question,
       category,
+      difficulty,
     });
   };
 
@@ -108,13 +113,40 @@ class Answers extends Component {
     this.setState(({ contador }) => ({ contador: contador + 1, isClicked: false }));
   };
 
-  validateColor = (answer, correctAnswerAPI) => {
-    if (answer === correctAnswerAPI) {
+  validateColor = (answer, correctAnswer) => {
+    if (answer === correctAnswer) {
       return 'btnGreen';
     } return 'btnRed';
   };
 
-  isClickedBtn = () => {
+  isClickedBtn = (answer, correctAnswer) => {
+    const { dispatch } = this.props;
+    const { temporizador, difficulty } = this.state;
+    console.log('temporizador:', temporizador);
+
+    const difficultyScore = {
+      hard: 3,
+      medium: 2,
+      easy: 1,
+    };
+    // console.log('dF:', difficultyScore[difficulty]);
+
+    const numeroPadrao = 10;
+    if (answer === correctAnswer) {
+      const sum = numeroPadrao + (temporizador * difficultyScore[difficulty]);
+
+      this.setState((prevState) => ({
+        score: prevState.score + sum,
+        isButtonDisabled: true,
+      }), () => {
+        const { score } = this.state;
+        dispatch(addScore(score));
+      });
+    } else {
+      this.setState({
+        isButtonDisabled: true,
+      });
+    }
     this.setState({ isClicked: true });
   };
 
@@ -143,7 +175,7 @@ class Answers extends Component {
                 answer === correctAnswer ? 'correct-answer' : `wrong-answer-${index}`
               }
               className={ isClicked ? this.validateColor(answer, correctAnswer) : '' }
-              onClick={ this.isClickedBtn }
+              onClick={ () => { this.isClickedBtn(answer, correctAnswer); } }
               disabled={ isButtonDisabled }
             >
               { answer }
@@ -162,16 +194,18 @@ class Answers extends Component {
   }
 }
 
-Answers.propTypes = {
+Questions.propTypes = {
+  dispatch: PropTypes.func.isRequired,
   questionResults: PropTypes.arrayOf(PropTypes.shape({
     category: PropTypes.string,
+    difficulty: PropTypes.string,
     question: PropTypes.string,
     incorrect_answers: PropTypes.arrayOf(PropTypes.string),
     correct_answer: PropTypes.arrayOf(PropTypes.string),
   })).isRequired,
 };
 
-export default Answers;
+export default connect()(Questions);
 
 // difficulty
 // :
