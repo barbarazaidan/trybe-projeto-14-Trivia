@@ -1,4 +1,4 @@
-import { GRAVATAR_INFO, SCORE } from '../actions/index';
+import { GRAVATAR_INFO, SCORE, ADD_SCORE } from '../actions/index';
 
 const INITIAL_STATE = {
   name: '',
@@ -9,16 +9,6 @@ const INITIAL_STATE = {
 
 const player = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-  // case ADD_NAME:
-  //   return {
-  //     name: action.name,
-
-  //   };
-  // case ADD_EMAIL:
-  //   return {
-  //     email: action.email,
-  //   };
-
   case GRAVATAR_INFO:
     return {
       name: action.name,
@@ -29,6 +19,12 @@ const player = (state = INITIAL_STATE, action) => {
   case SCORE:
     return {
       score: action.score,
+    };
+
+  case ADD_SCORE:
+    return {
+      ...state,
+      score: action.payload,
     };
 
   default:

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import Answers from '../components/Answers';
+import Questions from '../components/Questions';
 import Header from '../components/Header';
 import { KEY, getTriviaQuestions } from '../services/fetchToken';
 
@@ -13,7 +13,7 @@ class Game extends Component {
   async componentDidMount() {
     const { history } = this.props;
     const validateQuestions = await getTriviaQuestions();
-    console.log(validateQuestions.results);
+    console.log('validateQuestions', validateQuestions);
     if (validateQuestions.results.length === 0) {
       localStorage.removeItem(KEY);
       history.push('/');
@@ -29,7 +29,8 @@ class Game extends Component {
     return (
       <div>
         <Header />
-        { questionResults.length > 0 && <Answers questionResults={ questionResults } /> }
+        { questionResults.length > 0
+        && <Questions questionResults={ questionResults } /> }
       </div>
     );
   }
