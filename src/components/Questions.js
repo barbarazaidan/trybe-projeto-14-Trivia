@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { addScore } from '../redux/actions';
+import { addScore, addAssertions } from '../redux/actions';
 
 class Questions extends Component {
   state = {
@@ -16,6 +16,7 @@ class Questions extends Component {
     intervalId: 0,
     difficulty: '',
     score: 0,
+    numberOfAssertions: 0,
     isBtnShow: false,
   };
 
@@ -114,14 +115,15 @@ class Questions extends Component {
 
   nextQuestion = () => {
     const maxQuestions = 4;
-    const { history } = this.props;
+    const { history, dispatch } = this.props;
     // console.log(history);
 
     this.setState((prevState) => (
       { contador: prevState.contador + 1, isClicked: false }
     ), () => {
-      const { contador } = this.state;
+      const { contador, numberOfAssertions } = this.state;
       if (contador > maxQuestions) {
+        dispatch(addAssertions(numberOfAssertions));
         history.push('/feedback');
       }
     });
@@ -152,6 +154,7 @@ class Questions extends Component {
       this.setState((prevState) => ({
         score: prevState.score + sum,
         isButtonDisabled: true,
+        numberOfAssertions: prevState.numberOfAssertions + 1,
       }), () => {
         const { score } = this.state;
         dispatch(addScore(score));
