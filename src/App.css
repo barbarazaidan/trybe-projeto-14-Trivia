@@ -22,6 +22,10 @@ body {
   border-width: 3px;
 }
 
+.listRanking {
+  list-style: none;
+}
+
 .red-border {
   border: 1px solid red;
 }
