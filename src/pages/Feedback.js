@@ -15,15 +15,20 @@ class Feedback extends React.Component {
   }
 
   render() {
-    // const { assertions } = this.props;
-    // console.log(assertions);
     const { numeroAcertos } = this.state;
+    const { score, assertions } = this.props;
     console.log(numeroAcertos);
     const numeroMinimoAcertos = 3;
 
     return (
       <div>
         <Header />
+        <p data-testid="feedback-total-score">
+          { score }
+        </p>
+        <p data-testid="feedback-total-question">
+          { assertions }
+        </p>
         { numeroAcertos < numeroMinimoAcertos ? (
           <p data-testid="feedback-text">Could be better...</p>
         ) : <p data-testid="feedback-text">Well Done!</p> }
@@ -32,10 +37,11 @@ class Feedback extends React.Component {
   }
 }
 
-const mapStateToProps = ({ player: { assertions } }) => ({ assertions });
+const mapStateToProps = ({ player: { assertions, score } }) => ({ assertions, score });
 
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
+  score: PropTypes.number.isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
