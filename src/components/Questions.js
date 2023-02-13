@@ -20,18 +20,6 @@ class Questions extends Component {
     isBtnShow: false,
   };
 
-  // tempUser = () => {
-  //   const maxTime = 30;
-  //   return maxTime;
-  // };
-
-  // temporizador = () => {
-  //   console.log('Tai?');
-  //   const tempUser = this.tempUser();
-  //   return tempUser;
-  //   //   setInterval(tempUser(), 1000);
-  // };
-
   componentDidMount() {
     const maxTime = 30000;
     const tempInterval = 1000;
@@ -39,8 +27,9 @@ class Questions extends Component {
     this.generateAnswers(); // função que atualiza o estado da cetgoria, question e das respostas
 
     setTimeout(this.timer, maxTime);
-    const intervalIdi = setInterval(this.timerUser, tempInterval);
-    this.setState({ intervalId: intervalIdi });
+    const myInterval = setInterval(this.timerUser, tempInterval);
+    // console.log('myInterval', myInterval);
+    this.setState({ intervalId: myInterval });
   }
 
   componentDidUpdate(prevProp, prevState) {
@@ -58,8 +47,9 @@ class Questions extends Component {
         isBtnShow: false,
       });
       setTimeout(this.timer, maxTime);
-      const intervalIdi = setInterval(this.timerUser, tempInterval);
-      this.setState({ intervalId: intervalIdi });
+      const myInterval = setInterval(this.timerUser, tempInterval);
+      // console.log('myInterval', myInterval);
+      this.setState({ intervalId: myInterval });
     }
   }
 
@@ -100,16 +90,18 @@ class Questions extends Component {
     this.setState({
       isButtonDisabled: true, isBtnShow: true,
     });
-    console.log('oi do setTimeout');
+    // console.log('oi do setTimeout');
   };
 
   timerUser = () => {
-    const { temporizador, intervalId } = this.state;
+    // const { temporizador, intervalId } = this.state;
+    const { temporizador } = this.state;
     const newTemp = temporizador - 1;
     if (newTemp >= 0) {
       this.setState({ temporizador: newTemp });
-    } else {
-      clearInterval(intervalId);
+    // } else {
+    //   clearInterval(intervalId); // não precisa deste clearInterval, pois já estou chamando no nextQuestion
+    // }
     }
   };
 
@@ -127,6 +119,8 @@ class Questions extends Component {
         history.push('/feedback');
       }
     });
+    const { intervalId } = this.state;
+    clearInterval(intervalId); // vai limpar o intervalo caso usuário clique antes dos 30 segundos na pergunta
   };
 
   validateColor = (answer, correctAnswer) => {

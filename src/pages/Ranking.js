@@ -16,9 +16,9 @@ class Ranking extends Component {
 
   orderedPlayers = (localStoragePlayers) => {
     const infoPlayers = Object.values(localStoragePlayers); // retorna um array de objetos com os usuários salvos no localStorage
-    console.log(infoPlayers);
+    console.log('infoPlayers', infoPlayers);
     const playerScore = infoPlayers.sort((b, a) => a.score - b.score);
-    console.log(playerScore);
+    console.log('playerScore', playerScore);
     this.setState({ savedOrderedPlayers: playerScore });
   };
 
