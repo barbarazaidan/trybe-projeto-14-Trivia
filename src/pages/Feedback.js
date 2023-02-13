@@ -9,8 +9,25 @@ class Feedback extends React.Component {
   };
 
   componentDidMount() {
-    const { assertions } = this.props;
-    console.log(assertions);
+    const { assertions, score, name, gravatarEmail } = this.props;
+    // console.log(assertions);
+    const player = {
+      [name]: { score, name, gravatarEmail },
+    };
+
+    const savedPlayers = JSON.parse(localStorage.getItem('Players'));
+    console.log(savedPlayers);
+
+    if (savedPlayers === null) {
+      localStorage.setItem('Players', JSON.stringify(player));
+    } else {
+      const allPlayers = {
+        ...savedPlayers,
+        ...player,
+      };
+      localStorage.setItem('Players', JSON.stringify(allPlayers));
+    }
+
     this.setState({ numeroAcertos: assertions });
   }
 
@@ -51,11 +68,18 @@ class Feedback extends React.Component {
   }
 }
 
-const mapStateToProps = ({ player: { assertions, score } }) => ({ assertions, score });
+const mapStateToProps = ({ player: { assertions, score, name, gravatarEmail } }) => ({
+  assertions,
+  score,
+  name,
+  gravatarEmail,
+});
 
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  name: PropTypes.string.isRequired,
+  gravatarEmail: PropTypes.string.isRequired,
   history: PropTypes.shape({
     push: PropTypes.func,
   }).isRequired,
