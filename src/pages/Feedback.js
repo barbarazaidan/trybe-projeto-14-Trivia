@@ -16,7 +16,7 @@ class Feedback extends React.Component {
 
   render() {
     const { numeroAcertos } = this.state;
-    const { score, assertions } = this.props;
+    const { score, assertions, history } = this.props;
     console.log(numeroAcertos);
     const numeroMinimoAcertos = 3;
 
@@ -32,6 +32,13 @@ class Feedback extends React.Component {
         { numeroAcertos < numeroMinimoAcertos ? (
           <p data-testid="feedback-text">Could be better...</p>
         ) : <p data-testid="feedback-text">Well Done!</p> }
+        <button
+          type="button"
+          data-testid="btn-play-again"
+          onClick={ () => { history.push('/'); } }
+        >
+          Play Again
+        </button>
       </div>
     );
   }
@@ -42,6 +49,9 @@ const mapStateToProps = ({ player: { assertions, score } }) => ({ assertions, sc
 Feedback.propTypes = {
   assertions: PropTypes.number.isRequired,
   score: PropTypes.number.isRequired,
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }).isRequired,
 };
 
 export default connect(mapStateToProps)(Feedback);
