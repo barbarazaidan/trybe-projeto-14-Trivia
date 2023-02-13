@@ -17,3 +17,9 @@ export const addScore = (scoreQuestion) => ({
   type: 'ADD_SCORE',
   payload: scoreQuestion,
 });
+
+export const ADD_ASSERTIONS = 'ADD_ASSERTIONS';
+export const addAssertions = (assertions) => ({
+  type: ADD_ASSERTIONS,
+  payload: assertions,
+});
