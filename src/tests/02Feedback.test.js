@@ -1,9 +1,9 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
+import { act } from 'react-dom/test-utils';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import App from '../App';
-import { act } from 'react-dom/test-utils';
 
 describe('Testa a tela de feedback.', () => {
   test('Verifica tem as informações do usuario.', () => {
@@ -53,12 +53,12 @@ describe('Testa a tela de feedback.', () => {
   test('Verifica o botão que redireciona para a pagina de ranking.', () => {
     const { history } = renderWithRouterAndRedux(<App />);
 
-    act(() => { history.push('/feedback'); })
+    act(() => { history.push('/feedback'); });
 
     const btnRanking = screen.getByTestId('btn-ranking');
-    expect(btnRanking).toBeInTheDocument()
+    expect(btnRanking).toBeInTheDocument();
 
-    act(() => { userEvent.click(btnRanking)})
-    expect(history.location.pathname).toBe('/ranking')
+    act(() => { userEvent.click(btnRanking)});
+    expect(history.location.pathname).toBe('/ranking');
   });
 })
