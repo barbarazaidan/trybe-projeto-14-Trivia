@@ -3,6 +3,7 @@ import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import { screen, waitFor, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import App from '../App';
+//
 
 describe('Testar a tela de Login:', () => {
   it('Test01- Verifica se a tela foi renderizada no caminho correto', () => {
