@@ -13,8 +13,8 @@ class Game extends Component {
   async componentDidMount() {
     const { history } = this.props;
     const validateQuestions = await getTriviaQuestions();
-    console.log('validateQuestions', validateQuestions);
-    if (validateQuestions.results.length === 0) {
+    // console.log('validateQuestions', validateQuestions);
+    if (validateQuestions.results?.length === 0) {
       localStorage.removeItem(KEY);
       history.push('/');
     }
