@@ -14,6 +14,7 @@ class Questions extends Component {
     isClicked: false,
     isButtonDisabled: false,
     intervalId: 0,
+    timeoutId: 0,
     difficulty: '',
     score: 0,
     numberOfAssertions: 0,
@@ -26,10 +27,10 @@ class Questions extends Component {
 
     this.generateAnswers(); // função que atualiza o estado da cetgoria, question e das respostas
 
-    setTimeout(this.timer, maxTime);
+    const myTimeout = setTimeout(this.timer, maxTime);
     const myInterval = setInterval(this.timerUser, tempInterval);
     // console.log('myInterval', myInterval);
-    this.setState({ intervalId: myInterval });
+    this.setState({ intervalId: myInterval, timeoutId: myTimeout });
   }
 
   componentDidUpdate(prevProp, prevState) {
@@ -46,10 +47,10 @@ class Questions extends Component {
         temporizador: 30,
         isBtnShow: false,
       });
-      setTimeout(this.timer, maxTime);
+      const myTimeout = setTimeout(this.timer, maxTime);
       const myInterval = setInterval(this.timerUser, tempInterval);
       // console.log('myInterval', myInterval);
-      this.setState({ intervalId: myInterval });
+      this.setState({ intervalId: myInterval, timeoutId: myTimeout });
     }
   }
 
@@ -88,7 +89,7 @@ class Questions extends Component {
 
   timer = () => {
     this.setState({
-      isButtonDisabled: true, isBtnShow: true,
+      isButtonDisabled: true, isBtnShow: true, isClicked: true,
     });
     // console.log('oi do setTimeout');
   };
@@ -106,7 +107,7 @@ class Questions extends Component {
   };
 
   nextQuestion = () => {
-    const maxQuestions = 4;
+    const maxQuestions = 5;
     const { history, dispatch } = this.props;
     // console.log(history);
 
@@ -114,13 +115,16 @@ class Questions extends Component {
       { contador: prevState.contador + 1, isClicked: false }
     ), () => {
       const { contador, numberOfAssertions } = this.state;
-      if (contador > maxQuestions) {
+      if (contador === maxQuestions) {
         dispatch(addAssertions(numberOfAssertions));
         history.push('/feedback');
       }
     });
-    const { intervalId } = this.state;
+
+    const { intervalId, timeoutId } = this.state;
     clearInterval(intervalId); // vai limpar o intervalo caso usuário clique antes dos 30 segundos na pergunta
+
+    clearTimeout(timeoutId); // vai limpar o intervalo caso usuário clique antes dos 30 segundos na pergunta
   };
 
   validateColor = (answer, correctAnswer) => {
@@ -129,10 +133,10 @@ class Questions extends Component {
     } return 'btnRed';
   };
 
-  isClickedBtn = (answer, correctAnswer) => {
+  calScore = (answer, correctAnswer) => {
     const { dispatch } = this.props;
     const { temporizador, difficulty } = this.state;
-    console.log('temporizador:', temporizador);
+    // console.log('temporizador:', temporizador);
 
     const difficultyScore = {
       hard: 3,
@@ -142,23 +146,29 @@ class Questions extends Component {
     // console.log('dF:', difficultyScore[difficulty]);
 
     const numeroPadrao = 10;
+
     if (answer === correctAnswer) {
       const sum = numeroPadrao + (temporizador * difficultyScore[difficulty]);
 
       this.setState((prevState) => ({
         score: prevState.score + sum,
-        isButtonDisabled: true,
         numberOfAssertions: prevState.numberOfAssertions + 1,
       }), () => {
         const { score } = this.state;
         dispatch(addScore(score));
       });
-    } else {
-      this.setState({
-        isButtonDisabled: true,
-      });
     }
-    this.setState({ isClicked: true, isBtnShow: true });
+  };
+
+  isClickedBtn = (answer, correctAnswer) => {
+    this.calScore(answer, correctAnswer);
+
+    this.setState({
+      isButtonDisabled: true,
+      isClicked: true,
+      isBtnShow: true,
+      temporizador: 0,
+    });
   };
 
   render() {
@@ -175,7 +185,7 @@ class Questions extends Component {
 
     return (
       <div>
-        <p id="temporizador">{ temporizador }</p>
+        <p id="temporizador" data-testid="temporizadorUser">{ temporizador }</p>
         <p data-testid="question-category">{ category }</p>
         <p data-testid="question-text">{ question }</p>
         <div data-testid="answer-options">

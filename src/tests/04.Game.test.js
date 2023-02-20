@@ -1,9 +1,9 @@
 import React from 'react';
-import { screen, waitFor } from '@testing-library/react';
+import { getByTestId, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import { questionsResponse, invalidTokenQuestionsResponse } from './mocks/questionsAPI';
-import { tokenResponse, invalidTokenResponse } from './mocks/token';
+import { tokenResponse } from './mocks/token';
 import App from '../App';
 
 const mockPlayer = {
@@ -23,9 +23,9 @@ describe('Testa a tela de Game', () => {
     const scoreTest = screen.getByTestId('header-score');
     const imgTest = screen.getByTestId('header-profile-picture');
 
-    debug();
+    // debug();
 
-    console.log(scoreTest);
+    // console.log(scoreTest);
 
     expect(usuarioTest).toBeInTheDocument();
     expect(scoreTest).toBeInTheDocument();
@@ -33,57 +33,60 @@ describe('Testa a tela de Game', () => {
     expect(imgTest).toBeInTheDocument();
   });
 
-  it('Verifica se o token é inválido', () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue(invalidTokenQuestionsResponse);
+  it('Verifica se o token é inválido', async () => {
+    global.fetch = jest.fn(() => 
+    Promise.resolve({
+      json: () => Promise.resolve(invalidTokenQuestionsResponse)
+    }))
 
-    const { history, debug } = renderWithRouterAndRedux(<App />);
-    const nameInput = screen.getByTestId('input-player-name');
-    const emailInput = screen.getByTestId('input-gravatar-email');
-    const btnPlay = screen.getByRole('button', { name: 'Play' });
+    const { history, debug } = renderWithRouterAndRedux(<App />, mockPlayer, '/game');
 
-    userEvent.type(nameInput, 'usuario');
-    userEvent.type(emailInput, 'usuario@trybe.com');
-    userEvent.click(btnPlay);
+    const tokenLocal = localStorage.getItem('token');
+    //console.log(tokenLocal);
 
-    expect(localStorage.getItem('token')).toBeNull();
+    expect(fetch).toHaveBeenCalled();
+    expect(tokenLocal).toBeNull();
+
+    // SE COLOCAR '/feedback' OU OUTRA URL, O ERRO É GERADO, MAS COM O '/game', O ERRO NÃO PEGA
+    // ISSO PODE OCORRER POR CONTA DE UM ATRASO NO HYSTORY POR CONTA DA DESESTRUTURAÇÃO FEITA NA LINHA 44
+    // await waitFor(() => expect(history.location.pathname).toBe('/game'))
+    
+    console.log(window.location.pathname)
+    await waitFor(() => expect(window.location.pathname).toBe('/')) // com o window não há o problema do atraso e o teste pega o caminho da hora do navegador
+
     jest.clearAllMocks();
   });
 
   it('Verifica se o token é válido', async () => {
-    const { history, debug } = renderWithRouterAndRedux(<App />);
-    const nameInput = screen.getByTestId('input-player-name');
-    const emailInput = screen.getByTestId('input-gravatar-email');
-    const btnPlay = screen.getByRole('button', { name: 'Play' });
+    global.fetch = jest.fn(() => 
+    Promise.resolve({
+      json: () => Promise.resolve(questionsResponse)
+    }))
 
-    userEvent.type(nameInput, 'usuario');
-    userEvent.type(emailInput, 'usuario@trybe.com');
-    userEvent.click(btnPlay);
-    await screen.findByTestId('correct-answer', {}, { timeout: 4000 });
+    // EU PRECISO SETAR O LOCAL STORAGE, POIS A FUNÇÃO QUE LIDA COM ELE ESTÁ NA PÁGINA DE LOGIN DO MEU CÓDIGO E EU JÁ ENTRO NA ROTA DE GAME
+    localStorage.setItem('token', tokenResponse.token);
 
-    console.log(localStorage);
-    debug();
+    const { history, debug } = renderWithRouterAndRedux(<App />, mockPlayer, '/game');
 
-    const tokenLocal = window.localStorage.getItem('token');
+    await waitFor(() => expect(screen.getByTestId('correct-answer')).toBeInTheDocument())
+
+    const tokenLocal = localStorage.getItem('token');
     console.log(tokenLocal);
-
+    
+    debug()
+    
     expect(tokenLocal.length).toBe(64);
-  });
-
-  it('Verifica se o botão de next aparece na tela', async () => {
-    jest.spyOn(global, 'fetch');
-    global.fetch.mockResolvedValue({
-      json: jest.fn().mockResolvedValue(questionsResponse),
+    expect(tokenLocal).toBe(tokenResponse.token);
     });
 
-    const { history, debug } = renderWithRouterAndRedux(<App />);
-    const nameInput = screen.getByTestId('input-player-name');
-    const emailInput = screen.getByTestId('input-gravatar-email');
-    const btnPlay = screen.getByRole('button', { name: 'Play' });
+  it('Verifica se o botão de next aparece na tela', async () => {
+    global.fetch = jest.fn(() => 
+    Promise.resolve({
+      json: () => Promise.resolve(questionsResponse)
+    }))
 
-    userEvent.type(nameInput, 'usuario');
-    userEvent.type(emailInput, 'usuario@trybe.com');
-    userEvent.click(btnPlay);
+    const { history, debug } = renderWithRouterAndRedux(<App />, mockPlayer, '/game');
+
     const correctAnswer = await screen
       .findByTestId('correct-answer', {}, { timeout: 4000 });
 
@@ -99,4 +102,34 @@ describe('Testa a tela de Game', () => {
     await waitFor(() => expect(btnNext2).toBeInTheDocument());
     debug();
   });
+
+  // it('Verifica se o botão de next aparece na tela', async () => {
+  //   jest.spyOn(global, 'fetch');
+  //   global.fetch.mockResolvedValue({
+  //     json: jest.fn().mockResolvedValue(questionsResponse),
+  //   });
+
+  //   const { history, debug } = renderWithRouterAndRedux(<App />);
+  //   const nameInput = screen.getByTestId('input-player-name');
+  //   const emailInput = screen.getByTestId('input-gravatar-email');
+  //   const btnPlay = screen.getByRole('button', { name: 'Play' });
+
+  //   userEvent.type(nameInput, 'usuario');
+  //   userEvent.type(emailInput, 'usuario@trybe.com');
+  //   userEvent.click(btnPlay);
+  //   const correctAnswer = await screen
+  //     .findByTestId('correct-answer', {}, { timeout: 4000 });
+
+  //   const btnNext = screen.queryByTestId('btn-next');
+  //   // console.log(btnNext);
+
+  //   expect(btnNext).not.toBeInTheDocument();
+
+  //   userEvent.click(correctAnswer);
+  //   const btnNext2 = screen.queryByTestId('btn-next');
+  //   // console.log(btnNext);
+
+  //   await waitFor(() => expect(btnNext2).toBeInTheDocument());
+  //   debug();
+  // });
 });

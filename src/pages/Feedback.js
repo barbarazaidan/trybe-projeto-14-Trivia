@@ -16,7 +16,7 @@ class Feedback extends React.Component {
     };
 
     const savedPlayers = JSON.parse(localStorage.getItem('Players'));
-    console.log(savedPlayers);
+    // console.log(savedPlayers);
 
     if (savedPlayers === null) {
       localStorage.setItem('Players', JSON.stringify(player));
@@ -34,7 +34,7 @@ class Feedback extends React.Component {
   render() {
     const { numeroAcertos } = this.state;
     const { score, assertions, history } = this.props;
-    console.log(numeroAcertos);
+    // console.log(numeroAcertos);
     const numeroMinimoAcertos = 3;
 
     return (

@@ -6,6 +6,7 @@ import renderWithRouterAndRedux from './helpers/renderWithRouterAndRedux';
 import App from '../App';
 
 describe('Testa a tela de feedback.', () => {
+
   test('Verifica tem as informações do usuario.', () => {
     const { history } = renderWithRouterAndRedux(<App />);
     act(() => { history.push('/feedback') }) 
@@ -21,19 +22,6 @@ describe('Testa a tela de feedback.', () => {
 
     const msgText = screen.getByText('Could be better...')
     expect(msgText).toBeInTheDocument()
-
-    // const idFeed = screen.getByTestId('feedback-text');
-    // expect(idFeed).toBeInTheDocument();
-
-    // const scoreFinal = screen.getByTestId('header-score');
-    // expect(scoreFinal).toBeInTheDocument(); 
-
-    // const feedFinal = screen.getByTestId('feedback-total-score');
-    // expect(feedFinal).toBeInTheDocument();
-
-    // const numberOfHits = screen.getByTestId('feedback-total-question');
-    // expect(numberOfHits).toBeInTheDocument();
-
   
   });
 
@@ -60,5 +48,41 @@ describe('Testa a tela de feedback.', () => {
 
     act(() => { userEvent.click(btnRanking); });
     expect(history.location.pathname).toBe('/ranking');
+  });
+
+  test('Verifica a validação Well Done do feedback.', () => {
+
+    const initialState = {
+      player: {
+        name: "usuario",
+        assertions: 4,
+        score: 350,
+        gravatarEmail: "trybe@teste.com",
+      },
+    };
+
+    const { debug } = renderWithRouterAndRedux(<App />, initialState, '/feedback');
+
+    const msgFeedback = screen.getByTestId('feedback-text');
+    debug();
+    expect(msgFeedback).toHaveTextContent('Well Done!');
+  });
+
+  test('Verifica a validação Could be better... do feedback.', () => {
+
+    const initialState = {
+      player: {
+        name: "usuario",
+        assertions: 2,
+        score: 40,
+        gravatarEmail: "trybe@teste.com",
+      },
+    };
+
+    const { debug } = renderWithRouterAndRedux(<App />, initialState, '/feedback');
+
+    const msgFeedback = screen.getByTestId('feedback-text');
+    debug();
+    expect(msgFeedback).toHaveTextContent('Could be better...');
   });
 })

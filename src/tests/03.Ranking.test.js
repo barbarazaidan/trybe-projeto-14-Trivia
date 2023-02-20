@@ -18,6 +18,7 @@ describe('Testar a tela de Ranking:', () => {
     const title = await screen.findByRole('heading', { name: /ranking!/i });
     expect(title).toBeInTheDocument();
   });
+
   it('Test02- Verifica se o documento contem o nome do jogador', async () => {
     const { history } = renderWithRouterAndRedux(<App />);
     const players = {

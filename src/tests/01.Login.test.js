@@ -38,6 +38,7 @@ describe('Testar a tela de Login:', () => {
     expect(buttonSettings).toHaveProperty('type', 'button');
     expect(buttonSettings).toHaveTextContent('Settings');
   })
+
   it('Test03- Testa se o botão Play se mantém desabilitado quando somente um dos inputs estiver preenchido', () => {
     renderWithRouterAndRedux(<App />);
 
@@ -50,6 +51,7 @@ describe('Testar a tela de Login:', () => {
 
     expect(buttonPlay).toBeDisabled;
   })
+
   it('Test04- Testa se o botão Play habilita quando os inputs da tela são preenchidos corretamente', () => {
     renderWithRouterAndRedux(<App />);
 
@@ -64,6 +66,7 @@ describe('Testar a tela de Login:', () => {
 
     expect(buttonPlay).not.toBeDisabled;
   })
+
   it('Test05- Testa se o botão Play redireciona o usuário para a página Game após o click', async() => {
     const { history } = renderWithRouterAndRedux(<App />);
 
@@ -84,6 +87,7 @@ describe('Testar a tela de Login:', () => {
     // expect(history.location.pathname).toBe('/game');
     // Esse passa tbm! ^ 
   })
+
   it('Test06- Testa se o botão Settings redireciona o usuário para a página Settings após o click', () => {
     const { history } = renderWithRouterAndRedux(<App />);
 

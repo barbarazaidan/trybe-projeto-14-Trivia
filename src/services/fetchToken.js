@@ -11,7 +11,7 @@ const TOKEN_URL = 'https://opentdb.com/api_token.php?command=request';
 export const KEY = 'token';
 
 export const getToken = () => fetch(TOKEN_URL).then((response) => response.json())
-  .then((json) => localStorage.setItem(KEY, json.token))
+  .then((data) => localStorage.setItem(KEY, data.token))
   .catch(() => { console.log('Erro'); });
 
 export const getTriviaQuestions = async () => {

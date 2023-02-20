@@ -14,7 +14,7 @@ class Game extends Component {
     const { history } = this.props;
     const validateQuestions = await getTriviaQuestions();
     // console.log('validateQuestions', validateQuestions);
-    if (validateQuestions.results?.length === 0) {
+    if (validateQuestions.results.length === 0) {
       localStorage.removeItem(KEY);
       history.push('/');
     }
