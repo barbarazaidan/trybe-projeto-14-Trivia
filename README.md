@@ -1,7 +1,7 @@
 # Projeto Trivia
 ## Este repositório contém o desenvolvimento do meu 14º projeto na Trybe
 
-Neste projeto, desenvolvi, em grupo, um código para o jogo Trivia. Utilizamos React e Reduz na aplicação e trabalhamos diversas habilidades técnicas, bem como de soft skills. A maior parte do código foi desenvolvida em pair programming por mim e pelo Ricardo Sbeghen, com a ajuda da RoCarmona.
+Neste projeto, desenvolvi, em grupo, um código para o jogo Trivia. Utilizamos React e Redux na aplicação e trabalhamos diversas habilidades técnicas, bem como de soft skills. A maior parte do código foi desenvolvida em pair programming por mim e pelo Ricardo Sbeghen, com a ajuda da RoCarmona.
 
 ## Detalhes do projeto
 
