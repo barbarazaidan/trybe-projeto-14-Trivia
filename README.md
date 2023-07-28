@@ -17,6 +17,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **2. Crie o botão de iniciar o jogo**
 
 <details><summary>Detalhes</summary>
@@ -26,6 +28,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 
 </p>
 </details>
+
+---
 
 **3. Crie um botão que leva a pessoa para tela de configuração**
 
@@ -37,7 +41,11 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **4.  Desenvolva testes para atingir 90% de cobertura da tela de Login**
+
+---
 
 **5.  Crie um header que deve conter as informações da pessoa jogadora**
 
@@ -49,6 +57,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **6. Crie a página de jogo que deve conter as informações relacionadas à pergunta**
 
 <details><summary>Detalhes</summary>
@@ -58,6 +68,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 
 </p>
 </details>
+
+---
 
 **7. Desenvolva o estilo que, ao clicar em uma resposta, a correta deve ficar verde e as incorretas, vermelhas**
 
@@ -69,6 +81,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **8. Desenvolva um timer onde a pessoa que joga tem 30 segundos para responder**
 
 <details><summary>Detalhes</summary>
@@ -78,6 +92,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 
 </p>
 </details>
+
+---
 
 **9. Crie o placar com as seguintes características:**
 
@@ -89,6 +105,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **10. Crie um botão de Next que apareça após a resposta ser dada**
 
 <details><summary>Detalhes</summary>
@@ -98,6 +116,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 
 </p>
 </details>
+
+---
 
 **11. Desenvolva o jogo de forma que a pessoa jogadora deve responder 5 perguntas no total**
 
@@ -109,6 +129,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **12. Desenvolva o header de feedback que deve conter as informações da pessoa jogadora**
 
 <details><summary>Detalhes</summary>
@@ -118,6 +140,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 
 </p>
 </details>
+
+---
 
 **13. Crie a mensagem de feedback para ser exibida a pessoa usuária**
 
@@ -129,6 +153,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **14. Exiba as informações relacionadas aos resultados obtidos para a pessoa usuária**
 
 <details><summary>Detalhes</summary>
@@ -138,6 +164,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 
 </p>
 </details>
+
+---
 
 **15. Crie a opção para a pessoa jogadora poder jogar novamente**
 
@@ -149,6 +177,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **16. Crie a opção para a pessoa jogadora poder visualizar a tela de ranking**
 
 <details><summary>Detalhes</summary>
@@ -159,7 +189,11 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **17. Desenvolva testes para atingir 90% de cobertura da tela de Feedbacks**
+
+---
 
 **18. Crie um botão para ir ao início na tela de ranking**
 
@@ -171,6 +205,8 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **19. Crie o conteúdo da tela de ranking**
 
 <details><summary>Detalhes</summary>
@@ -181,11 +217,19 @@ Confira os requisitos exigidos pela Trybe (texto extraído dos readme oficial da
 </p>
 </details>
 
+---
+
 **20. Desenvolva testes para atingir 90% de cobertura da tela de Ranking**
+
+---
 
 **21. Desenvolva testes para atingir 90% de cobertura da tela de Jogo**
 
+---
+
 **22.  Desenvolva testes para atingir 95% de cobertura total**
+
+---
 
 ## Sobre o curso da Trybe
 O programa total de estudo conta com mais de 1.500 horas de aulas presenciais e online,divididas ao longo de 12 meses. O conteúdo aborda introdução ao desenvolvimento de software, front-end, back-end, ciência da computação, engenharia de software, metodologias ágeis e habilidades comportamentais.
